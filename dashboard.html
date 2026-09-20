@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bachelor Room Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">🏠 <span>RoomManager</span></div>
+
+        <nav>
+            <button class="nav-btn active" data-section="dashboard">📊 Dashboard</button>
+            <button class="nav-btn" data-section="expenses">🧾 Expenses</button>
+            <button class="nav-btn" data-section="settings">⚙️ Settings</button>
+            <button class="nav-btn" data-section="members">👥 Members</button>
+            <button class="nav-btn" data-section="notifications">🔔 Notifications</button>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Manage your room's common money easily.</p>
+                <small id="userEmail" class="muted"></small>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:center;">
+                <button class="bell" id="notificationBtn">
+                    🔔 <span id="notificationCount">0</span>
+                </button>
+                <button class="secondary" id="logoutBtn">Logout</button>
+            </div>
+        </header>
+
+        <!-- DASHBOARD SECTION -->
+        <section id="dashboard" class="section active">
+
+            <div class="stats">
+                <div class="stat-card balance">
+                    <span>Common Balance</span>
+                    <strong id="balance">₹0</strong>
+                    <small>Available now</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Contributions</span>
+                    <strong id="contributions">₹0</strong>
+                    <small>All members</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Expenses</span>
+                    <strong id="expensesTotal">₹0</strong>
+                    <small>Money spent</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Members</span>
+                    <strong>7</strong>
+                    <small>Room members</small>
+                </div>
+            </div>
+
+            <div class="grid-two">
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <h2>Quick Actions</h2>
+                    </div>
+
+                    <div class="actions">
+                        <button class="primary" id="addExpenseBtn">＋ Add Expense</button>
+                        <button class="secondary" id="addMoneyBtn">＋ Add Contribution</button>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <h2>Expense by Category</h2>
+                    </div>
+
+                    <div id="categoryChart" class="chart"></div>
+                </div>
+
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">
+                    <h2>Recent Expenses</h2>
+                    <button class="text-btn" data-section="expenses">View all</button>
+                </div>
+
+                <div id="recentExpenses"></div>
+            </div>
+
+        </section>
+
+        <!-- EXPENSES SECTION -->
+        <section id="expenses" class="section">
+            <div class="section-actions">
+                <div>
+                    <h2>Expense History</h2>
+                    <p>Every purchase made from the common fund.</p>
+                </div>
+                <button class="primary" id="addExpenseBtn2">＋ Add Expense</button>
+            </div>
+
+            <div class="panel">
+                <div class="filters">
+                    <input id="expenseSearch" placeholder="Search expenses...">
+                    <select id="categoryFilter"></select>
+                    <select id="memberFilter"></select>
+                </div>
+
+                <div id="expenseList"></div>
+            </div>
+        </section>
+
+        <!-- SETTINGS SECTION -->
+        <section id="settings" class="section">
+            <div class="section-actions">
+                <div>
+                    <h2>⚙️ Room Settings</h2>
+                    <p>Manage general configurations and administrator options.</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">
+                    <h2>General Preferences</h2>
+                </div>
+                <p class="muted">Room settings and application preferences will appear here.</p>
+            </div>
+
+            <!-- Admin Controls -->
+            <div class="panel admin-section" id="adminSection" style="display: none;">
+                <div class="panel-head">
+                    <h2>⚙️ Admin Controls</h2>
+                    <span class="admin-badge">ADMIN</span>
+                </div>
+
+                <p>
+                    Manage room money directly without accessing Firebase console.
+                </p>
+
+                <div class="admin-controls-grid">
+                    <div class="admin-card">
+                        <h3>💵 Adjust Balance / Add Direct Money</h3>
+                        <p class="muted">Quickly add or deduct money directly from room balance.</p>
+                        <form id="adminMoneyForm" class="admin-form">
+                            <input type="number" id="adminMoneyAmount" placeholder="Amount (₹)" required>
+                            <input type="text" id="adminMoneyNote" placeholder="Reason / Note (e.g. Initial balance)" required>
+                            <button type="submit" class="secondary">Adjust Balance</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card danger-zone">
+                        <h3>🗑️ Danger Zone</h3>
+                        <p class="muted">
+                            Resetting will permanently delete all contributions, expenses, and notifications.
+                        </p>
+                        <button id="resetBtn" class="reset-button">
+                            Reset All Room Money
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEMBERS SECTION -->
+        <section id="members" class="section">
+            <div class="section-actions">
+                <div>
+                    <h2>Room Members</h2>
+                    <p>Track everyone's contribution.</p>
+                </div>
+            </div>
+
+            <div class="members-grid" id="membersGrid"></div>
+        </section>
+
+        <!-- NOTIFICATIONS SECTION -->
+        <section id="notifications" class="section">
+            <div class="section-actions">
+                <div>
+                    <h2>Notifications</h2>
+                    <p>All room members receive expense updates.</p>
+                </div>
+                <button class="secondary" id="clearNotifications">Mark all read</button>
+            </div>
+
+            <div class="panel" id="notificationList"></div>
+        </section>
+
+    </main>
+
+    <!-- EXPENSE MODAL -->
+    <div class="modal hidden" id="expenseModal">
+        <div class="modal-box">
+            <button class="close" data-close="expenseModal">×</button>
+
+            <h2>Add Expense</h2>
+            <p>Money spent from the common fund will notify all 7 members.</p>
+
+            <form id="expenseForm">
+                <label>
+                    Item / Description
+                    <input name="item" required placeholder="e.g. Vegetables">
+                </label>
+
+                <label>
+                    Category
+                    <select name="category" required>
+                        <option>Vegetables</option>
+                        <option>Cosmetics</option>
+                        <option>Cleaning</option>
+                        <option>Groceries</option>
+                        <option>Water</option>
+                        <option>Electricity</option>
+                        <option>Maintenance</option>
+                        <option>Room Items</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+
+                <label>
+                    Amount (₹)
+                    <input name="amount" type="number" min="1" step="0.01" required>
+                </label>
+
+                <label>
+                    Purchased by
+                    <select name="member" id="expenseMember" required></select>
+                </label>
+
+                <label>
+                    Date
+                    <input name="date" type="date" required>
+                </label>
+
+                <label>
+                    Note
+                    <textarea name="note" placeholder="Optional note"></textarea>
+                </label>
+
+                <button class="primary full" type="submit">
+                    Save Expense & Notify Members
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MONEY MODAL -->
+    <div class="modal hidden" id="moneyModal">
+        <div class="modal-box">
+            <button class="close" data-close="moneyModal">×</button>
+
+            <h2>Add Contribution</h2>
+
+            <form id="moneyForm">
+                <label>
+                    Member
+                    <select name="member" id="moneyMember" required></select>
+                </label>
+
+                <label>
+                    Amount (₹)
+                    <input name="amount" type="number" min="1" step="0.01" required>
+                </label>
+
+                <label>
+                    Date
+                    <input name="date" type="date" required>
+                </label>
+
+                <label>
+                    Note
+                    <input name="note" placeholder="e.g. September contribution">
+                </label>
+
+                <button class="primary full" type="submit">Add Money</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="dashboard.js"></script>
+</body>
+
+</html>

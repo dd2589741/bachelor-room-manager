@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bachelor Room Manager - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="brand">🏠 <span>RoomManager</span></div>
+            <h1>Welcome Back</h1>
+            <p>Log in to manage your room's common money.</p>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+            <label for="email">
+                Email Address
+                <input type="email" id="email" placeholder="e.g. user@example.com" required>
+            </label>
+
+            <label for="password">
+                Password
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </label>
+
+            <button type="submit" class="primary full" id="submitBtn">
+                Login
+            </button>
+        </form>
+
+        <p id="message" class="auth-message"></p>
+    </div>
+
+    <script type="module" src="login.js"></script>
+
+</body>
+
+</html>\
