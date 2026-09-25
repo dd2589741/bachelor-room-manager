@@ -64,6 +64,6 @@ node_modules/
 
 # dotenv environment variables file
 .env
-
+ONESIGNAL_REST_API_KEY="os_v2_app_qfajfvbyczettajp2zo5g6rzln7jhyowqgbeosvhf6tjmi5jpsd5dfo6nrwnjkinlajv2khwzarse74zq4m5flolnmo3oyrvebrsrui"
 # dataconnect generated files
 .dataconnect
