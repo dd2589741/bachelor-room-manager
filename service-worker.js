@@ -1,3 +1,5 @@
+importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
+
 const CACHE_NAME = "bachelor-room-manager-v1";
 
 const FILES_TO_CACHE = [
@@ -6,8 +8,8 @@ const FILES_TO_CACHE = [
     "./dashboard.html",
     "./login.js",
     "./dashboard.js",
-    "./firebase.js",
-    "./style(1).css",
+    "./firebase-config.js",
+    "./style.css",
     "./manifest.json"
 ];
 

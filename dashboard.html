@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bachelor Room Manager</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- OneSignal Web Push -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function (OneSignal) {
+            await OneSignal.init({
+                appId: "814092d4-3816-4939-812f-d65dd37a395b",
+                safari_web_id: "web.onesignal.auto.0654afc0-ce06-4b31-9757-37165e976417",
+                serviceWorkerPath: "service-worker.js",
+                serviceWorkerParam: { scope: "/" }
+            });
+            OneSignal.Notifications.requestPermission();
+        });
+    </script>
 </head>
 
 <body>
